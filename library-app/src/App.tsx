@@ -8,6 +8,7 @@ import {Navbar} from "./layout/navbar-and-footer/Navbar";
 import {ExploreTopBooks} from "./layout/homepage/ExploreTopBooks";
 import {Carousel} from "./layout/homepage/Carousel";
 import {Heroes} from "./layout/homepage/Heroes";
+import {LibraryServices} from "./layout/homepage/LibraryServices";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
             <ExploreTopBooks/>
             <Carousel/>
             <Heroes/>
+            <LibraryServices/>
         </div>
     );
 }
