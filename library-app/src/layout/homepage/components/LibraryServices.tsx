@@ -11,7 +11,7 @@ export const LibraryServices = () => {
                         our library admins a personal message.
                     </p>
                     <div className="d-grid gap-2 justify-content-md-start mb-4 mb-lg-3">
-                        <a href="#" className="btn main-color btn-lg text-white">Sign up</a>
+                        <a href="src/layouts/homepage#" className="btn main-color btn-lg text-white">Sign up</a>
                     </div>
                 </div>
                 <div className="col-lg-4 offset-lg-1 shadow-lg lost-image"></div>

@@ -3,25 +3,13 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./App.css";
+import {HomePage} from "./layout/homepage/HomePage";
 
-import {Navbar} from "./layout/navbar-and-footer/Navbar";
-import {ExploreTopBooks} from "./layout/homepage/ExploreTopBooks";
-import {Carousel} from "./layout/homepage/Carousel";
-import {Heroes} from "./layout/homepage/Heroes";
-import {LibraryServices} from "./layout/homepage/LibraryServices";
-import {Footer} from "./layout/navbar-and-footer/Footer";
 
-function App() {
+export const App = () => {
     return (
         <div>
-            <Navbar/>
-            <ExploreTopBooks/>
-            <Carousel/>
-            <Heroes/>
-            <LibraryServices/>
-            <Footer/>
+            <HomePage/>
         </div>
     );
 }
-
-export default App;

@@ -10,7 +10,7 @@ export const ExploreTopBooks = () => {
                     <p className="col-md-8 fs-4">
                         Where would you like to go next?
                     </p>
-                    <a href="#" type="button" className="btn main-color btn-lg text-white">
+                    <a href="src/layouts/homepage#" type="button" className="btn main-color btn-lg text-white">
                         Explore top books
                     </a>
                 </div>
