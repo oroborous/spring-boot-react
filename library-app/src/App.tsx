@@ -9,6 +9,7 @@ import {ExploreTopBooks} from "./layout/homepage/ExploreTopBooks";
 import {Carousel} from "./layout/homepage/Carousel";
 import {Heroes} from "./layout/homepage/Heroes";
 import {LibraryServices} from "./layout/homepage/LibraryServices";
+import {Footer} from "./layout/navbar-and-footer/Footer";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
             <Carousel/>
             <Heroes/>
             <LibraryServices/>
+            <Footer/>
         </div>
     );
 }
