@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  mysql:
+    container_name: librarydb
+    image: mysql:8.0.23
+    environment:
+      MYSQL_DATABASE: 'reactlibrary'
+      MYSQL_USER: 'developer'
+      MYSQL_PASSWORD: 'dbpassword'
+      MYSQL_ROOT_PASSWORD: 'rootpassword'
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysqldata:/var/lib/mysql
