@@ -9,12 +9,10 @@ import React from "react";
 export const HomePage = () => {
     return (
         <>
-            <Navbar/>
             <ExploreTopBooks/>
             <Carousel/>
             <Heroes/>
             <LibraryServices/>
-            <Footer/>
         </>
     );
 };
