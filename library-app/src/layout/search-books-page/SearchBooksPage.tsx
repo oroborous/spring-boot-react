@@ -13,12 +13,22 @@ export const SearchBooksPage = () => {
     const [booksPerPage, setBooksPerPage] = useState(5);
     const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+    const [search, setSearch] = useState("");
+    const [searchUrl, setSearchUrl] = useState("");
+    const [categorySelection, setCategorySelection] = useState("Book category");
 
     // Will be called initially, and when any of the [] variables changes
     useEffect(() => {
         const fetchBooks = async () => {
             const baseUrl: string = "http://localhost:8080/api/books";
-            const url: string = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
+            let url: string = "";
+
+            if (searchUrl) {
+                url = baseUrl + searchUrl;
+            } else {
+                url = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
+            }
+
             const response = await fetch(url); // raw text
 
             if (!response.ok)
@@ -55,8 +65,8 @@ export const SearchBooksPage = () => {
             setIsLoading(false);
             setHttpError(error.message);
         });
-        window.scrollTo(0,0);
-    }, [currentPage]);
+        window.scrollTo(0, 0);
+    }, [currentPage, searchUrl]);
 
     if (isLoading) {
         return (
@@ -70,6 +80,23 @@ export const SearchBooksPage = () => {
                 <p>{httpError}</p>
             </div>
         );
+    }
+
+    const searchHandleChange = () => {
+        if (search) {
+            setSearchUrl(`/search/findByTitleContaining?title=${search}&page=0&size=${booksPerPage}`)
+        } else {
+            setSearchUrl("");
+        }
+    }
+
+    const categoryField = (value: string) => {
+        setCategorySelection(value);
+        if (value !== "All") {
+            setSearchUrl(`/search/findByCategory?category=${value}&page=0&size=${booksPerPage}`)
+        } else {
+            setSearchUrl(`?page=0&size=${booksPerPage}`)
+        }
     }
 
     const indexOfLastBook: number = currentPage * booksPerPage;
@@ -87,42 +114,58 @@ export const SearchBooksPage = () => {
                         <div className="col-6">
                             <div className="d-flex">
                                 <input type="search" className="form-control me-2"
-                                       placeholder="search" aria-labelledby="Search"/>
-                                <button className="btn btn-outline-success">Search</button>
+                                       placeholder="search" aria-label="Search"
+                                       onChange={e => setSearch(e.target.value)}/>
+                                <button className="btn btn-outline-success"
+                                        onClick={() => searchHandleChange()}>Search
+                                </button>
                             </div>
                         </div>
                         <div className="col-4">
                             <div className="dropdown">
                                 <button className="btn btn-secondary dropdown-toggle"
                                         type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                        aria-expanded="false">Category
+                                        aria-expanded="false">{categorySelection}
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li>
+                                    <li onClick={() => categoryField("All")}>
                                         <a href="#" className="dropdown-item">All</a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => categoryField("FE")}>
                                         <a href="#" className="dropdown-item">Front End</a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => categoryField("BE")}>
                                         <a href="#" className="dropdown-item">Back End</a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => categoryField("Data")}>
                                         <a href="#" className="dropdown-item">Data</a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => categoryField("DevOps")}>
                                         <a href="#" className="dropdown-item">DevOps</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div className="mt-3">
-                        <h5>Number of results: ({totalAmountOfBooks})</h5>
-                    </div>
-                    <p>
-                        {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks} items:
-                    </p>
+                    {totalAmountOfBooks > 0 ?
+                        <>
+                            <div className="mt-3">
+                                <h5>Number of results: ({totalAmountOfBooks})</h5>
+                            </div>
+                            <p>
+                                {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks} items:
+                            </p>
+                        </>
+                        :
+                        <div className="m-5">
+                            <h3>
+                                Can't find what you're looking for?
+                            </h3>
+                            <a href="#" type="button" className="btn main-color btn-md px-4 me-md-2 fw-bold text-white">
+                                Library Services
+                            </a>
+                        </div>
+                    }
                     {
                         books.map(book => (
                             <SearchBook book={book} key={book.id}/>
