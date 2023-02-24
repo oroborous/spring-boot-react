@@ -4,6 +4,7 @@ import {SpinnerLoading} from "../utils/SpinnerLoading";
 import {StarsReview} from "../utils/StarsReview";
 import {CheckoutAndReviewBox} from "./CheckoutAndReviewBox";
 import ReviewModel from "../../models/ReviewModel";
+import {LatestReviews} from "./LatestReviews";
 
 export const BookCheckoutPage = () => {
 
@@ -16,7 +17,7 @@ export const BookCheckoutPage = () => {
     const [totalStars, setTotalStars] = useState(0);
     const [isLoadingReview, setIsLoadingReview] = useState(true);
 
-    const bookId = (window.location.pathname).split("/").pop();
+    const bookId = Number((window.location.pathname).split("/").pop());
 
     // Will be called initially, and when any of the [] variables changes
     useEffect(() => {
@@ -111,6 +112,7 @@ export const BookCheckoutPage = () => {
                     <CheckoutAndReviewBox book={book} mobile={false}/>
                 </div>
                 <hr/>
+                <LatestReviews reviews={reviews} bookId={bookId} mobile={false}/>
             </div>
             <div className="container d-lg-none mt-5">
                 <div className="d-flex justify-content-center align-items-center">
@@ -131,6 +133,7 @@ export const BookCheckoutPage = () => {
                 </div>
                 <CheckoutAndReviewBox book={book} mobile={true}/>
                 <hr/>
+                <LatestReviews reviews={reviews} bookId={bookId} mobile={true}/>
             </div>
         </div>
     );

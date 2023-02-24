@@ -13,17 +13,18 @@ export const LatestReviews: React.FC<{
             <div className={props.mobile ? "" : "col-sm-2 col-md-2"}>
                 <h2>Latest Reviews: </h2>
             </div>
-            <div className="col-sm-10 col-md-2">
+            <div className="col-sm-10 col-md-10">
                 {props.reviews.length > 0 ?
                     <>
-                        {props.reviews.slice(0, 3).map(aReview => {
-                            <Review review={aReview} key={aReview.id}/>
-                        })
+                        {
+                            props.reviews.slice(0, 3).map(aReview =>
+                                <Review review={aReview} key={aReview.id}/>
+                            )
                         }
 
                         <div className="m-3">
                             <Link to="#" type="button" className="btn main-color btn-md text-white">
-                                Reach all reviews
+                                Read all reviews
                             </Link>
                         </div>
                     </>
