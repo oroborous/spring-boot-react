@@ -3,7 +3,7 @@ import React from "react";
 export const StarsReview: React.FC<{ rating: number, size: number }> = (props) => {
     let rating = props.rating || 0; // set to zero if no rating provided
     let fullStars = Math.min(Math.max(Math.floor(rating), 0), 5); // clamp rating between 0 and 5
-    let halfStar = rating % 0 !== 0; // any fractional remainder will necessitate a half star
+    let halfStar = rating > 0 && rating % 0 !== 0; // any fractional remainder will necessitate a half star
     let emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
     return (
