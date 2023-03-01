@@ -26,3 +26,5 @@ const LoginWidget = ({config}) => {
                           onSuccess={onSuccess}
                           onError={onError}/>
 };
+
+export default LoginWidget;

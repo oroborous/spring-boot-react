@@ -1,7 +1,7 @@
 import {useEffect, useRef} from "react";
 import OktaSignIn from "@okta/okta-signin-widget";
 import "@okta/okta-signin-widget/dist/css/okta-sign-in.min.css";
-import {OktaConfig} from "../lib/OktaConfig";
+import {oktaConfig} from "../lib/OktaConfig";
 
 const OktaSignInWidget = ({onSuccess, onError}) => {
     const widgetRef = useRef();
@@ -10,7 +10,7 @@ const OktaSignInWidget = ({onSuccess, onError}) => {
         if (!widgetRef.current)
             return false;
 
-        const widget = new OktaSignIn(OktaConfig);
+        const widget = new OktaSignIn(oktaConfig);
 
         widget.showSignInToGetTokens({
             el: widgetRef.current
