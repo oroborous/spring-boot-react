@@ -1,4 +1,10 @@
+import {useOktaAuth} from "@okta/okta-react";
+import {Link} from "react-router-dom";
+
 export const Heroes = () => {
+
+    const {authState} = useOktaAuth();
+
     return (
         <div>
             <div className="d-none d-lg-block">
@@ -14,7 +20,15 @@ export const Heroes = () => {
                                 Whether it is to learn a new skill or grow within one,
                                 we will be able to provide top content for you!
                             </p>
-                            <a href="src/layouts/homepage#" className="btn main-color btn-lg text-white">Sign up</a>
+                            {
+                                authState?.isAuthenticated ?
+                                    <Link className="btn main-color btn-lg text-white"
+                                          type="button" to="search">
+                                        Explore top books
+                                    </Link>
+                                    :
+                                    <Link to="/login" className="btn main-color btn-lg text-white">Sign up</Link>
+                            }
                         </div>
                     </div>
                 </div>
@@ -30,6 +44,7 @@ export const Heroes = () => {
                                 our book selection and our books are always going to be our
                                 top priority.
                             </p>
+
                         </div>
                     </div>
 
@@ -52,7 +67,15 @@ export const Heroes = () => {
                                 Whether it is to learn a new skill or grow within one,
                                 we will be able to provide top content for you!
                             </p>
-                            <a href="src/layouts/homepage#" className="btn main-color btn-lg text-white">Sign up</a>
+                            {
+                                authState?.isAuthenticated ?
+                                    <Link className="btn main-color btn-lg text-white"
+                                          type="button" to="search">
+                                        Explore top books
+                                    </Link>
+                                    :
+                                    <Link to="/login" className="btn main-color btn-lg text-white">Sign up</Link>
+                            }
                         </div>
                     </div>
                     <div className="m-2">
