@@ -13,19 +13,21 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/secure/currentloans/count")
-    public int currentLoansCount() {
+    public int currentLoansCount(@RequestHeader(value = "Authorization") String token) {
         String userEmail = "testuser@email.com";
         return bookService.currentLoansCount(userEmail);
     }
 
     @GetMapping("/secure/ischeckedout/byuser")
-    public Boolean checkoutBookByUser(@RequestParam Long bookId) {
+    public Boolean checkoutBookByUser(@RequestParam Long bookId,
+                                      @RequestHeader(value = "Authorization") String token) {
         String userEmail = "testuser@email.com";
         return bookService.checkoutBookByUser(userEmail, bookId);
     }
 
     @PutMapping("/secure/checkout")
-    public Book checkoutBook(@RequestParam Long bookId) throws Exception {
+    public Book checkoutBook(@RequestParam Long bookId,
+                             @RequestHeader(value = "Authorization") String token) throws Exception {
         String userEmail = "testuser@email.com";
 
         return bookService.checkoutBook(userEmail, bookId);

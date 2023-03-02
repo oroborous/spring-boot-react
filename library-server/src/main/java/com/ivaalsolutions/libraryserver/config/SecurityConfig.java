@@ -16,9 +16,11 @@ public class SecurityConfig {
         http.csrf().disable();
 
         // Protect endpoints at /api/<type>/secure
-        http.authorizeHttpRequests(configurer ->
-                configurer.requestMatchers("/api/books/secure/**")
-                        .authenticated())
+        http
+                .authorizeHttpRequests(configurer ->
+                        configurer
+                                .requestMatchers("/api/books/secure/**")
+                                .authenticated())
                 .oauth2ResourceServer()
                 .jwt();
 
