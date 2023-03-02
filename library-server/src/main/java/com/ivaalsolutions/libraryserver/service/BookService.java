@@ -20,6 +20,19 @@ public class BookService {
     @Autowired
     private CheckoutRepository checkoutRepository;
 
+    public int currentLoansCount(String userEmail) {
+        return checkoutRepository.findByUserEmail(userEmail).size();
+    }
+
+    public boolean checkoutBookByUser(String userEmail, Long bookId) {
+        Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
+
+        if (validateCheckout != null)
+            return true;
+        else
+            return false;
+    }
+
     public Book checkoutBook(String userEmail, Long bookId) throws Exception {
         Optional<Book> book = bookRepository.findById(bookId);
         // check if user already has this book checked out
