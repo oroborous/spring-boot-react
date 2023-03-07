@@ -14,25 +14,21 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        // Disable CSRF (Cross site request forgery)
-//        http.csrf().disable();
-//
-//        // Protect endpoints at /api/<type>/secure
-//        http
-//                .authorizeHttpRequests(configurer ->
-//                        configurer
-//                                .requestMatchers("/api/books/secure/**")
-//                                .authenticated())
-//                .oauth2ResourceServer()
-//                .jwt();
+        // Disable CSRF (Cross site request forgery)
+        http.csrf().disable();
+
+        // Protect endpoints at /api/<type>/secure
         http
-                .csrf()
-                .disable()
+                .authorizeHttpRequests(configurer ->
+                        configurer
+                                .requestMatchers("/api/*/secure/**")
+                                .authenticated())
+                .oauth2ResourceServer()
+                .jwt();
+        http
                 .authorizeHttpRequests()
-                .requestMatchers("/api/books/**")
-                .permitAll()
                 .anyRequest()
-                .authenticated();
+                .permitAll();
 
         // Add CORS filters to API endpoints
         http.cors();
