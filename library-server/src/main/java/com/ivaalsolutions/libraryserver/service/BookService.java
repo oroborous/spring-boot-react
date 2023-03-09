@@ -44,7 +44,7 @@ public class BookService {
             Checkout checkout = checkoutList.stream().filter(co -> Objects.equals(co.getBookId(), book.getId())).findFirst().orElse(null);
             if (checkout != null) {
                 LocalDate dueDate = LocalDate.parse(checkout.getReturnDate(), dateFormat);
-                int daysLeft = Period.between(dueDate, LocalDate.now()).getDays();
+                int daysLeft = Period.between(LocalDate.now(), dueDate).getDays();
                 list.add(new ShelfCurrentLoansResponse(book, daysLeft));
             }
         }
