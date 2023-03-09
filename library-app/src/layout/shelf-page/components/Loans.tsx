@@ -4,6 +4,7 @@ import ShelfCurrentLoans from "../../../models/ShelfCurrentLoans";
 import {SpinnerLoading} from "../../utils/SpinnerLoading";
 import {findAllByDisplayValue} from "@testing-library/react";
 import {Link} from "react-router-dom";
+import {LoansModal} from "./LoansModal";
 
 export const Loans = () => {
     const {authState} = useOktaAuth();
@@ -111,8 +112,12 @@ export const Loans = () => {
                                             </Link>
                                         </div>
                                     </div>
+                                    <hr/>
+                                    <LoansModal shelfCurrentLoan={shelfCurrentLoan}
+                                                mobile={false}/>
                                 </div>
                             </div>
+
                         ))}
                     </>
                     :
@@ -179,7 +184,9 @@ export const Loans = () => {
                                         </Link>
                                     </div>
                                 </div>
-
+                                <hr/>
+                                <LoansModal shelfCurrentLoan={shelfCurrentLoan}
+                                            mobile={true}/>
                             </div>
                         ))}
                     </>
