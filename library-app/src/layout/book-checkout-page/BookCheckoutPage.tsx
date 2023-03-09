@@ -158,8 +158,8 @@ export const BookCheckoutPage = () => {
                 }
                 const bookCheckedOutResponseJson = await bookCheckedOut.json();
                 setIsCheckedOut(bookCheckedOutResponseJson);
-                setIsLoadingBookCheckedOut(false);
             }
+            setIsLoadingBookCheckedOut(false);
         }
         fetchUserCheckedOutBook().catch((error: any) => {
             setIsLoadingBookCheckedOut(false);
