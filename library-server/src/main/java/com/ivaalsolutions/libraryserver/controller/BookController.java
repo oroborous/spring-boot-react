@@ -19,6 +19,13 @@ public class BookController {
     // "sub" is subject of bearer token
     private final String SUB = "\"sub\"";
 
+    @PutMapping("/secure/return")
+    public void returnBook(@RequestHeader(value="Authorization") String token,
+                           @RequestParam Long bookId) throws Exception {
+        String userEmail = ExtractJwt.payloadJwtExtraction(token, SUB);
+        bookService.returnBook(userEmail, bookId);
+    }
+
     @GetMapping("/secure/currentloans")
     public List<ShelfCurrentLoansResponse> currentLoans(@RequestHeader(value="Authorization") String token) throws Exception {
         String userEmail = ExtractJwt.payloadJwtExtraction(token, SUB);
