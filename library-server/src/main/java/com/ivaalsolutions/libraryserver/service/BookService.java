@@ -71,6 +71,7 @@ public class BookService {
                 LocalDate.now().format(dateFormat), book.getTitle(), book.getAuthor(),
                 book.getDescription(), book.getImage());
         historyRepository.save(history);
+        System.out.println(history);
 
         checkoutRepository.delete(validateCheckout);
     }

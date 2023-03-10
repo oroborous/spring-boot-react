@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
     @Column(name="user_email")
     private String userEmail;
