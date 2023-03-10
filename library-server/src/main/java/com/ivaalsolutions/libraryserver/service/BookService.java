@@ -26,6 +26,24 @@ public class BookService {
     @Autowired
     private CheckoutRepository checkoutRepository;
 
+    public void renewLoan(String userEmail, Long bookId) throws Exception {
+        Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
+
+        if (validateCheckout == null) {
+            throw new Exception("Book does not exist or is not checked out by user");
+        }
+
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        LocalDate dueDate = LocalDate.parse(validateCheckout.getReturnDate(), dateFormat);
+        LocalDate today = LocalDate.now();
+
+        if (dueDate.isAfter(today) || dueDate.isEqual(today)) {
+            validateCheckout.setReturnDate(today.plusDays(7).format(dateFormat));
+            checkoutRepository.save(validateCheckout);
+        }
+    }
+
     public void returnBook(String userEmail, Long bookId) throws Exception {
         Optional<Book> book = bookRepository.findById(bookId);
         // verify that this book is checked out by this user
@@ -66,6 +84,7 @@ public class BookService {
         }
         return list;
     }
+
     public boolean checkoutBookByUser(String userEmail, Long bookId) {
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 
