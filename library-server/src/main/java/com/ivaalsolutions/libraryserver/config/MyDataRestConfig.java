@@ -1,6 +1,7 @@
 package com.ivaalsolutions.libraryserver.config;
 
 import com.ivaalsolutions.libraryserver.entity.Book;
+import com.ivaalsolutions.libraryserver.entity.History;
 import com.ivaalsolutions.libraryserver.entity.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -21,9 +22,11 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         config.exposeIdsFor(Book.class);
         config.exposeIdsFor(Review.class);
+        config.exposeIdsFor(History.class);
 
         disableHttpMethods(Book.class, config, unsupportedActions);
         disableHttpMethods(Review.class, config, unsupportedActions);
+        disableHttpMethods(History.class, config, unsupportedActions);
 
         // Configure CORS mapping
         cors.addMapping(config.getBasePath() + "/**")
