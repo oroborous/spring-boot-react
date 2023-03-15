@@ -15,7 +15,7 @@ import {Security, LoginCallback, SecureRoute} from "@okta/okta-react";
 import LoginWidget from "./auth/LoginWidget";
 import {ReviewListPage} from "./layout/book-checkout-page/ReviewListPage";
 import {ShelfPage} from "./layout/shelf-page/ShelfPage";
-import {MessagesPage} from "./layout/MessagesPage";
+import {MessagesPage} from "./layout/messages-page/MessagesPage";
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
