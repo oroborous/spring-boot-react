@@ -31,7 +31,7 @@ public class MessageController {
         String userEmail = ExtractJwt.payloadJwtExtraction(token, SUB);
         String admin = ExtractJwt.payloadJwtExtraction(token, USER_TYPE);
 
-        if (admin == null || !admin.equals("admin")) {
+        if (admin == null || !admin.equals(ADMIN)) {
             throw new Exception("Administration page only");
         }
 
