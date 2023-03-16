@@ -1,6 +1,7 @@
 import {useOktaAuth} from "@okta/okta-react";
 import {useState} from "react";
 import {Redirect} from "react-router-dom";
+import {AdminMessages} from "./components/AdminMessages";
 
 export const ManageLibraryPage = () => {
     const {authState} = useOktaAuth();
@@ -36,19 +37,19 @@ export const ManageLibraryPage = () => {
                         <button className="nav-link active" id="nav-add-book-tab"
                                 data-bs-toggle="tab" data-bs-target="#nav-add-book"
                                 type="button" role="tab" aria-controls="nav-add-book"
-                                aria-selected="false" onClick={() => addBookClickFunction}>
+                                aria-selected="false" onClick={() => addBookClickFunction()}>
                             Add new book
                         </button>
                         <button className="nav-link" id="nav-quantity-tab"
                                 data-bs-toggle="tab" data-bs-target="#nav-quantity"
                                 type="button" role="tab" aria-controls="nav-quantity"
-                                aria-selected="true" onClick={() => changeQuantityOfBooksClickFunction}>
+                                aria-selected="true" onClick={() => changeQuantityOfBooksClickFunction()}>
                             Change quantity
                         </button>
                         <button className="nav-link" id="nav-messages-tab"
                                 data-bs-toggle="tab" data-bs-target="#nav-messages"
                                 type="button" role="tab" aria-controls="nav-messages"
-                                aria-selected="true" onClick={() => messagesClickFunction}>
+                                aria-selected="true" onClick={() => messagesClickFunction()}>
                             Messages
                         </button>
                     </div>
@@ -64,7 +65,7 @@ export const ManageLibraryPage = () => {
                     </div>
                     <div className="tab-pane fade" id="nav-messages"
                          role="tabpanel" aria-labelledby="nav-messages-tab">
-                        {messagesClick ? <>Admin messages</> : <></>}
+                        {messagesClick ? <AdminMessages/> : <></>}
                     </div>
                 </div>
             </div>
