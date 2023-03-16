@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/admin")
 public class AdminController {
     @Autowired
@@ -17,7 +18,7 @@ public class AdminController {
     private final String ADMIN = "admin";
 
     @PostMapping("/secure/add/book")
-    public void postBook(@RequestHeader(value = "Authentication") String token,
+    public void postBook(@RequestHeader(value = "Authorization") String token,
                          @RequestBody AddBookRequest addBookRequest) throws Exception {
         String userEmail = ExtractJwt.payloadJwtExtraction(token, SUB);
         String admin = ExtractJwt.payloadJwtExtraction(token, USER_TYPE);
