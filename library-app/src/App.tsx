@@ -16,6 +16,7 @@ import LoginWidget from "./auth/LoginWidget";
 import {ReviewListPage} from "./layout/book-checkout-page/ReviewListPage";
 import {ShelfPage} from "./layout/shelf-page/ShelfPage";
 import {MessagesPage} from "./layout/messages-page/MessagesPage";
+import {ManageLibraryPage} from "./layout/manage-library-page/ManageLibraryPage";
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -62,6 +63,9 @@ export const App = () => {
                         </SecureRoute>
                         <SecureRoute path="/messages">
                             <MessagesPage/>
+                        </SecureRoute>
+                        <SecureRoute path="/admin">
+                            <ManageLibraryPage/>
                         </SecureRoute>
                     </Switch>
                 </div>
