@@ -3,8 +3,9 @@ import BookModel from "../../../models/BookModel";
 import {useOktaAuth} from "@okta/okta-react";
 import {SpinnerLoading} from "../../utils/SpinnerLoading";
 import {Pagination} from "../../utils/Pagination";
+import {ChangeBook} from "./ChangeBook";
 
-export const ChangeBookQuantity = () => {
+export const ChangeBookQuantities = () => {
 
     const {authState} = useOktaAuth();
 
@@ -74,7 +75,7 @@ export const ChangeBookQuantity = () => {
                     </div>
                     <p>{indexOfFirstBook + 1} to {totalAmountOfBooks}</p>
                     {books.map(book => (
-                        <p>Display a book</p>
+                        <ChangeBook book={book} key={book.id}/>
                     ))
                     }
                 </>
