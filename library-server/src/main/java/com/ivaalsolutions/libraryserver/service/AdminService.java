@@ -1,6 +1,8 @@
 package com.ivaalsolutions.libraryserver.service;
 
 import com.ivaalsolutions.libraryserver.dao.BookRepository;
+import com.ivaalsolutions.libraryserver.dao.CheckoutRepository;
+import com.ivaalsolutions.libraryserver.dao.ReviewRepository;
 import com.ivaalsolutions.libraryserver.entity.Book;
 import com.ivaalsolutions.libraryserver.requestmodels.AddBookRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,16 @@ import java.util.Optional;
 public class AdminService {
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private CheckoutRepository checkoutRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    public void deleteBook(Long bookId) throws Exception {
+        reviewRepository.deleteAllByBookId(bookId);
+        checkoutRepository.deleteAllByBookId(bookId);
+        bookRepository.deleteById(bookId);
+    }
 
     public void increaseBookQuantity(Long bookId) throws Exception {
         Optional<Book> optional = bookRepository.findById(bookId);
@@ -24,6 +36,7 @@ public class AdminService {
 
         Book book = optional.get();
         book.setCopies(book.getCopies() + 1);
+        book.setCopiesAvailable(book.getCopiesAvailable() + 1);
         bookRepository.save(book);
     }
 
@@ -35,11 +48,12 @@ public class AdminService {
         }
 
         Book book = optional.get();
-        if (book.getCopies() == 0) {
-            throw new Exception("Cannot decrease quantity below zero");
+        if (book.getCopies() <= 0 || book.getCopiesAvailable() <= 0) {
+            throw new Exception("Cannot decrease available copies below zero");
         }
 
         book.setCopies(book.getCopies() - 1);
+        book.setCopiesAvailable(book.getCopiesAvailable() - 1);
         bookRepository.save(book);
     }
 

@@ -1,7 +1,10 @@
 import BookModel from "../../../models/BookModel";
 import {useEffect, useState} from "react";
+import {useOktaAuth} from "@okta/okta-react";
 
 export const ChangeBook: React.FC<{ book: BookModel }> = (props, key) => {
+    const {authState} = useOktaAuth();
+
     const [quantity, setQuantity] = useState<number>(0);
     const [remaining, setRemaining] = useState<number>(0);
 
@@ -12,6 +15,25 @@ export const ChangeBook: React.FC<{ book: BookModel }> = (props, key) => {
         };
         fetchBookInState();
     });
+
+    async function increaseQuantity() {
+        const url = `http://localhost:8080/api/secure/admin/increase/book/quantity?bookId=${props.book.id}`;
+
+        if (authState && authState.isAuthenticated) {
+            const requestOptions = {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${authState?.accessToken?.accessToken}`
+                }
+            };
+            const increaseQuantityResponse = await fetch(url, requestOptions);
+            if (!increaseQuantityResponse.ok) {
+                throw new Error("Something went wrong");
+            }
+
+            setQuantity(quantity + 1);
+        }
+    }
 
     return (
         <div className="card mt-3 shadow p-3 mb-3 bg-body rounded">
