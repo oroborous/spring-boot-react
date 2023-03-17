@@ -20,7 +20,7 @@ export const SearchBooksPage = () => {
     // Will be called initially, and when any of the [] variables changes
     useEffect(() => {
         const fetchBooks = async () => {
-            const baseUrl: string = "http://localhost:8080/api/books";
+            const baseUrl: string = `${process.env.REACT_APP_API}/books`;
             let url: string = "";
 
             if (searchUrl) {

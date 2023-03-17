@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(value = "${allowed-origins}")
 @RequestMapping("/api/messages")
 public class MessageController {
     @Autowired

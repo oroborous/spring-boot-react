@@ -4,6 +4,7 @@ import com.ivaalsolutions.libraryserver.entity.Book;
 import com.ivaalsolutions.libraryserver.entity.History;
 import com.ivaalsolutions.libraryserver.entity.Message;
 import com.ivaalsolutions.libraryserver.entity.Review;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -13,7 +14,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
     // For CORS mapping
-    private final String allowedOrigins = "http://localhost:3000";
+    @Value("${allowed-origins}")
+    private String allowedOrigins;
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config,

@@ -2,7 +2,6 @@ import {useOktaAuth} from "@okta/okta-react";
 import {useEffect, useState} from "react";
 import ShelfCurrentLoans from "../../../models/ShelfCurrentLoans";
 import {SpinnerLoading} from "../../utils/SpinnerLoading";
-import {findAllByDisplayValue} from "@testing-library/react";
 import {Link} from "react-router-dom";
 import {LoansModal} from "./LoansModal";
 
@@ -18,7 +17,7 @@ export const Loans = () => {
     useEffect(() => {
         const fetchUserCurrentLoans = async () => {
             if (authState && authState.isAuthenticated) {
-                const url = `http://localhost:8080/api/books/secure/currentloans`;
+                const url = `${process.env.REACT_APP_API}/books/secure/currentloans`;
                 const requestOptions = {
                     method: "GET",
                     headers: {
@@ -55,7 +54,7 @@ export const Loans = () => {
     }
 
     async function returnBook(bookId: number) {
-        const url = `http://localhost:8080/api/books/secure/return?bookId=${bookId}`;
+        const url = `${process.env.REACT_APP_API}/books/secure/return?bookId=${bookId}`;
         const requestOptions = {
             method: "PUT",
             headers: {
@@ -71,7 +70,7 @@ export const Loans = () => {
     }
 
     async function renewLoan(bookId: number) {
-        const url = `http://localhost:8080/api/books/secure/renew/loan?bookId=${bookId}`;
+        const url = `${process.env.REACT_APP_API}/books/secure/renew/loan?bookId=${bookId}`;
         const requestOptions = {
             method: "PUT",
             headers: {

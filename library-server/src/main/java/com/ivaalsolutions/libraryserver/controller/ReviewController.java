@@ -6,8 +6,8 @@ import com.ivaalsolutions.libraryserver.utils.ExtractJwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("http://localhost:3000")
 @RestController
+@CrossOrigin(value = "${allowed-origins}")
 @RequestMapping("/api/reviews")
 public class ReviewController {
     private final String SUB = "\"sub\"";
