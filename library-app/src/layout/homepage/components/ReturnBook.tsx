@@ -1,4 +1,3 @@
-import React from "react";
 import BookModel from "../../../models/BookModel";
 import {Link} from "react-router-dom";
 

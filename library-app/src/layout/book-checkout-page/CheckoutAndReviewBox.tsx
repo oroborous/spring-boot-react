@@ -1,5 +1,4 @@
 import BookModel from "../../models/BookModel";
-import React from "react";
 import {Link} from "react-router-dom";
 import {LeaveAReview} from "../utils/LeaveAReview";
 

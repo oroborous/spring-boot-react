@@ -1,5 +1,4 @@
 import ReviewModel from "../../models/ReviewModel";
-import React from "react";
 import {Link} from "react-router-dom";
 import {Review} from "../utils/Review";
 
