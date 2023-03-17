@@ -104,7 +104,7 @@ export const ChangeBook: React.FC<{ book: BookModel }> = (props, key) => {
                 <button className="m-1 btn btn-md main-color text-white"
                         onClick={increaseQuantity}>Add Quantity
                 </button>
-                <button className="m-1 btn btn-md btn-warning"
+                <button className={quantity <= 0 ? "m-1 btn btn-md btn-warning disabled" : "m-1 btn btn-md btn-warning"}
                         onClick={decreaseQuantity}>Decrease Quantity
                 </button>
             </div>
