@@ -5,6 +5,7 @@ import com.ivaalsolutions.libraryserver.dao.CheckoutRepository;
 import com.ivaalsolutions.libraryserver.dao.ReviewRepository;
 import com.ivaalsolutions.libraryserver.entity.Book;
 import com.ivaalsolutions.libraryserver.requestmodels.AddBookRequest;
+import com.ivaalsolutions.libraryserver.responsemodels.ChangeBookQuantityResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +34,7 @@ public class AdminService {
         bookRepository.deleteById(bookId);
     }
 
-    public void increaseBookQuantity(Long bookId) throws Exception {
+    public ChangeBookQuantityResponse increaseBookQuantity(Long bookId) throws Exception {
         Optional<Book> optional = bookRepository.findById(bookId);
 
         if (optional.isEmpty()) {
@@ -44,9 +45,11 @@ public class AdminService {
         book.setCopies(book.getCopies() + 1);
         book.setCopiesAvailable(book.getCopiesAvailable() + 1);
         bookRepository.save(book);
+
+        return new ChangeBookQuantityResponse(bookId, book.getCopies(), book.getCopiesAvailable());
     }
 
-    public void decreaseBookQuantity(Long bookId) throws Exception {
+    public ChangeBookQuantityResponse decreaseBookQuantity(Long bookId) throws Exception {
         Optional<Book> optional = bookRepository.findById(bookId);
 
         if (optional.isEmpty()) {
@@ -61,6 +64,8 @@ public class AdminService {
         book.setCopies(book.getCopies() - 1);
         book.setCopiesAvailable(book.getCopiesAvailable() - 1);
         bookRepository.save(book);
+
+        return new ChangeBookQuantityResponse(bookId, book.getCopies(), book.getCopiesAvailable());
     }
 
     public void postBook(AddBookRequest addBookRequest) {

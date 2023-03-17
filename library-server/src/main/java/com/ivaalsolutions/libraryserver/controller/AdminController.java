@@ -1,6 +1,7 @@
 package com.ivaalsolutions.libraryserver.controller;
 
 import com.ivaalsolutions.libraryserver.requestmodels.AddBookRequest;
+import com.ivaalsolutions.libraryserver.responsemodels.ChangeBookQuantityResponse;
 import com.ivaalsolutions.libraryserver.service.AdminService;
 import com.ivaalsolutions.libraryserver.utils.ExtractJwt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,27 +31,27 @@ public class AdminController {
     }
 
     @PutMapping("/secure/increase/book/quantity")
-    public void increaseBookQuantity(@RequestHeader(value = "Authorization") String token,
-                                     @RequestParam(name = "bookId") Long bookId) throws Exception {
+    public ChangeBookQuantityResponse increaseBookQuantity(@RequestHeader(value = "Authorization") String token,
+                                                           @RequestParam(name = "bookId") Long bookId) throws Exception {
         String admin = ExtractJwt.payloadJwtExtraction(token, USER_TYPE);
 
         if (admin == null || !admin.equals(ADMIN)) {
             throw new Exception("Administration page only");
         }
 
-        adminService.increaseBookQuantity(bookId);
+        return adminService.increaseBookQuantity(bookId);
     }
 
     @PutMapping("/secure/decrease/book/quantity")
-    public void decreaseBookQuantity(@RequestHeader(value = "Authorization") String token,
-                                     @RequestParam(name = "bookId") Long bookId) throws Exception {
+    public ChangeBookQuantityResponse decreaseBookQuantity(@RequestHeader(value = "Authorization") String token,
+                                                           @RequestParam(name = "bookId") Long bookId) throws Exception {
         String admin = ExtractJwt.payloadJwtExtraction(token, USER_TYPE);
 
         if (admin == null || !admin.equals(ADMIN)) {
             throw new Exception("Administration page only");
         }
 
-        adminService.decreaseBookQuantity(bookId);
+        return adminService.decreaseBookQuantity(bookId);
     }
 
     @PostMapping("/secure/add/book")

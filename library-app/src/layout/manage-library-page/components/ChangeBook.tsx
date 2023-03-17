@@ -31,8 +31,32 @@ export const ChangeBook: React.FC<{ book: BookModel }> = (props, key) => {
                 throw new Error("Something went wrong");
             }
 
-            setQuantity(quantity + 1);
-            setRemaining(remaining + 1);
+            const increaseQuantityResponseJson = await increaseQuantityResponse.json();
+
+            setQuantity(increaseQuantityResponseJson.copies);
+            setRemaining(increaseQuantityResponseJson.copiesAvailable);
+        }
+    }
+
+    async function decreaseQuantity() {
+        const url = `http://localhost:8080/api/admin/secure/decrease/book/quantity?bookId=${props.book?.id}`;
+
+        if (authState && authState.isAuthenticated) {
+            const requestOptions = {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${authState?.accessToken?.accessToken}`
+                }
+            };
+            const decreaseQuantityResponse = await fetch(url, requestOptions);
+            if (!decreaseQuantityResponse.ok) {
+                throw new Error("Something went wrong");
+            }
+
+            const decreaseQuantityResponseJson = await decreaseQuantityResponse.json();
+
+            setQuantity(decreaseQuantityResponseJson.copies);
+            setRemaining(decreaseQuantityResponseJson.copiesAvailable);
         }
     }
 
@@ -80,7 +104,9 @@ export const ChangeBook: React.FC<{ book: BookModel }> = (props, key) => {
                 <button className="m-1 btn btn-md main-color text-white"
                         onClick={increaseQuantity}>Add Quantity
                 </button>
-                <button className="m-1 btn btn-md btn-warning">Decrease Quantity</button>
+                <button className="m-1 btn btn-md btn-warning"
+                        onClick={decreaseQuantity}>Decrease Quantity
+                </button>
             </div>
         </div>
     );
