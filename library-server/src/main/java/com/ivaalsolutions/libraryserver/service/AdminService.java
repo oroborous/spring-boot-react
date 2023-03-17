@@ -22,6 +22,12 @@ public class AdminService {
     private ReviewRepository reviewRepository;
 
     public void deleteBook(Long bookId) throws Exception {
+        Optional<Book> optional = bookRepository.findById(bookId);
+
+        if (optional.isEmpty()) {
+            throw new Exception("Book was not found");
+        }
+
         reviewRepository.deleteAllByBookId(bookId);
         checkoutRepository.deleteAllByBookId(bookId);
         bookRepository.deleteById(bookId);

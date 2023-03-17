@@ -14,10 +14,10 @@ export const ChangeBook: React.FC<{ book: BookModel }> = (props, key) => {
             props.book.copiesAvailable ? setRemaining(props.book.copiesAvailable) : setRemaining(0);
         };
         fetchBookInState();
-    });
+    }, []);
 
     async function increaseQuantity() {
-        const url = `http://localhost:8080/api/secure/admin/increase/book/quantity?bookId=${props.book.id}`;
+        const url = `http://localhost:8080/api/admin/secure/increase/book/quantity?bookId=${props.book?.id}`;
 
         if (authState && authState.isAuthenticated) {
             const requestOptions = {
@@ -32,6 +32,7 @@ export const ChangeBook: React.FC<{ book: BookModel }> = (props, key) => {
             }
 
             setQuantity(quantity + 1);
+            setRemaining(remaining + 1);
         }
     }
 
@@ -76,7 +77,9 @@ export const ChangeBook: React.FC<{ book: BookModel }> = (props, key) => {
                         <button className="m-1 btn btn-md btn-danger">Delete</button>
                     </div>
                 </div>
-                <button className="m-1 btn btn-md main-color text-white">Add Quantity</button>
+                <button className="m-1 btn btn-md main-color text-white"
+                        onClick={increaseQuantity}>Add Quantity
+                </button>
                 <button className="m-1 btn btn-md btn-warning">Decrease Quantity</button>
             </div>
         </div>
